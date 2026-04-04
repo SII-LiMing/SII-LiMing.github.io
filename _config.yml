@@ -23,10 +23,10 @@ repository               : "SII-LiMing/SII-LiMing.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "profile.png"
+  avatar           : "profile.jpg"
   name             : "Ming Li"
   pronouns         : # example: "she/her"  
-  bio              : "Academic homepage template under construction."
+  bio              : "Hi! I am Ming Li (李明), a first-year Ph.D. student jointly trained by Zhejiang University, Westlake University, and the Shanghai Innovation Institute. I am advised by <a href=\"https://en.westlake.edu.cn/faculty/xiangru-huang.html\">Xiangru Huang</a> and <a href=\"https://yanweifu.github.io/\">Yanwei Fu</a>. My research focuses on 3D reconstruction and generation, with a particular interest in scalable pipelines for automatically acquiring high-quality, interactive 3D assets. I am interested not only in watertight 3D objects, but also in modeling cloth and garments."
   location         : ""
   employer         : ""
   uri              : # URL
