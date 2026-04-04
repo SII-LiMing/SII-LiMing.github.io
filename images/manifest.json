@@ -1,9 +1,13 @@
+---
+layout: none
+permalink: /images/manifest.json
+---
 {
-	"name": "Your Name / Site Title",
-	"short_name": "Your Name",
-	"description": "Your Name's academic portfolio",
-	"start_url": "/",
-	"lang": "en-US",
+	"name": {{ site.title | jsonify }},
+	"short_name": {{ site.name | jsonify }},
+	"description": {{ site.description | jsonify }},
+	"start_url": "{{ site.baseurl | default: '/' }}",
+	"lang": {{ site.locale | default: "en" | jsonify }},
 	"icons": [
 		{
 			"src": "/images/favicon-192x192.png",
