@@ -16,7 +16,7 @@ author_profile: true
   flex: 0 0 220px;
   width: 220px;
 }
-.intern-media svg {
+.intern-media img {
   width: 100%;
   aspect-ratio: 1 / 1;
   border-radius: 10px;
@@ -61,19 +61,7 @@ author_profile: true
 
 <div class="intern-card">
   <div class="intern-media">
-    <svg viewBox="0 0 216 216" aria-label="Rodin logo" role="img" xmlns="http://www.w3.org/2000/svg">
-      <rect width="216" height="216" fill="#000"/>
-      <g fill="#fff">
-        <ellipse cx="108" cy="42" rx="24" ry="49" transform="rotate(24 108 42)"/>
-        <ellipse cx="166" cy="77" rx="24" ry="49" transform="rotate(84 166 77)"/>
-        <ellipse cx="166" cy="139" rx="24" ry="49" transform="rotate(144 166 139)"/>
-        <ellipse cx="108" cy="174" rx="24" ry="49" transform="rotate(204 108 174)"/>
-        <ellipse cx="50" cy="139" rx="24" ry="49" transform="rotate(264 50 139)"/>
-        <ellipse cx="50" cy="77" rx="24" ry="49" transform="rotate(324 50 77)"/>
-        <circle cx="108" cy="108" r="33" fill="#000"/>
-        <circle cx="108" cy="108" r="12" fill="#fff"/>
-      </g>
-    </svg>
+    <img src="{{ '/images/rodin_logo.jpeg' | prepend: base_path }}" alt="Rodin logo">
   </div>
   <div class="intern-content">
     <div class="intern-title"><a href="https://hyper3d.ai/">Rodin</a></div>
