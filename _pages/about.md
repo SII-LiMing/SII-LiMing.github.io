@@ -20,3 +20,110 @@ My research focuses on **3D reconstruction** and **3D generation**, with a parti
 - 📄 **2026.2** Two papers were accepted to **CVPR 2026**: [ReWeaver](https://arxiv.org/abs/2601.16672) (**first author**) and [NI-Tex](https://arxiv.org/abs/2511.18765) (**second author**).
 - 🔬 **2025.7** Joined the [Xiangru Huang Lab](https://rcif.westlake.edu.cn/rcdw/wlcls_2159/pi_2160/202503/t20250323_53628.shtml) at **Westlake University** as a **visiting student**.
 - 🎓 **2025.6** Graduated from **Harbin Institute of Technology** with a **B.Eng.**
+
+## Publications
+
+<style>
+.pub-list-home {
+  margin-top: 1rem;
+}
+.pub-home-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin: 0 0 1.6rem 0;
+}
+.pub-home-media {
+  flex: 0 0 180px;
+  width: 180px;
+}
+.pub-home-media img,
+.pub-home-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--global-border-color);
+  border-radius: 10px;
+  background: #f5f5f5;
+  object-fit: cover;
+}
+.pub-home-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #999;
+  font-size: 0.9rem;
+}
+.pub-home-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.pub-home-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.pub-home-authors {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.98rem;
+  line-height: 1.6;
+  color: #555;
+}
+.pub-self {
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 0.12em;
+}
+.pub-home-venue {
+  margin: 0.35rem 0 0.75rem 0;
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #222;
+}
+.pub-home-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 0.55rem;
+}
+@media (max-width: 900px) {
+  .pub-home-card {
+    flex-direction: column;
+  }
+  .pub-home-media {
+    width: 100%;
+    max-width: 260px;
+  }
+}
+</style>
+
+{% assign pubs = site.publications | sort: "date" | reverse %}
+<div class="pub-list-home">
+  {% for post in pubs %}
+    <div class="pub-home-card">
+      <div class="pub-home-media">
+        {% if post.teaser %}
+          <img src="{{ post.teaser | prepend: '/images/' | prepend: base_path }}" alt="{{ post.title }}">
+        {% else %}
+          <div class="pub-home-placeholder">Teaser / Demo</div>
+        {% endif %}
+      </div>
+      <div class="pub-home-content">
+        <div class="pub-home-title">{{ post.title }}</div>
+        {% if post.authors_html %}
+          <div class="pub-home-authors">{{ post.authors_html }}</div>
+        {% else %}
+          <div class="pub-home-authors">Author list to be updated.</div>
+        {% endif %}
+        <div class="pub-home-venue">{{ post.venue_display | default: post.venue }}</div>
+        <div class="pub-home-links">
+          {% if post.projecturl %}<a class="btn btn--inverse btn--small" href="{{ post.projecturl }}">Project Page</a>{% endif %}
+          {% if post.paperurl %}<a class="btn btn--inverse btn--small" href="{{ post.paperurl }}">Paper</a>{% endif %}
+          {% if post.arxivurl %}<a class="btn btn--inverse btn--small" href="{{ post.arxivurl }}">arXiv</a>{% endif %}
+          {% if post.codeurl %}<a class="btn btn--inverse btn--small" href="{{ post.codeurl }}">Code</a>{% endif %}
+          {% if post.dataseturl %}<a class="btn btn--inverse btn--small" href="{{ post.dataseturl }}">Dataset</a>{% endif %}
+          {% if post.pressurl %}<a class="btn btn--inverse btn--small" href="{{ post.pressurl }}">Press</a>{% endif %}
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
