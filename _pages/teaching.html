@@ -5,8 +5,106 @@ permalink: /teaching/
 author_profile: true
 ---
 
-{% include base_path %}
+<style>
+.edu-list {
+  margin-top: 1.5rem;
+}
+.edu-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin: 0 0 2rem 0;
+}
+.edu-media {
+  flex: 0 0 220px;
+  width: 220px;
+}
+.edu-placeholder {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  border: 1px solid var(--global-border-color);
+  border-radius: 10px;
+  background: linear-gradient(135deg, #f8f8f8, #efefef);
+  color: #777;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.4;
+  padding: 1rem;
+}
+.edu-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.edu-title {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.9rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #111;
+}
+.edu-program {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #555;
+}
+.edu-dates {
+  margin: 0.5rem 0 1rem 0;
+  font-size: 1.02rem;
+  font-weight: 700;
+  color: #222;
+}
+.edu-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 0.65rem;
+}
+@media (max-width: 900px) {
+  .edu-card {
+    flex-direction: column;
+  }
+  .edu-media {
+    width: 100%;
+    max-width: 300px;
+  }
+  .edu-title {
+    font-size: 1.4rem;
+  }
+}
+</style>
 
-{% for post in site.teaching reversed %}
-  {% include archive-single.html %}
-{% endfor %}
+<div class="edu-list">
+  <div class="edu-card">
+    <div class="edu-media">
+      <div class="edu-placeholder">Harbin Institute of Technology</div>
+    </div>
+    <div class="edu-content">
+      <div class="edu-title">Harbin Institute of Technology</div>
+      <div class="edu-program">B.Eng. in Computer Science and Technology</div>
+      <div class="edu-dates">2021.9 - 2025.7</div>
+      <div class="edu-links">
+        <a class="btn btn--inverse btn--small" href="https://www.hit.edu.cn/">University Website</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="edu-card">
+    <div class="edu-media">
+      <div class="edu-placeholder">ZJU - Westlake - SII Joint Program</div>
+    </div>
+    <div class="edu-content">
+      <div class="edu-title">Zhejiang University - Westlake University - Shanghai Innovation Institute Joint Program</div>
+      <div class="edu-program">Ph.D. in Computer Science and Technology</div>
+      <div class="edu-dates">2025.10 - 2030.6 (expected)</div>
+      <div class="edu-links">
+        <a class="btn btn--inverse btn--small" href="https://www.zju.edu.cn/">ZJU</a>
+        <a class="btn btn--inverse btn--small" href="https://www.westlake.edu.cn/">Westlake</a>
+        <a class="btn btn--inverse btn--small" href="https://www.sii.edu.cn/">SII</a>
+      </div>
+    </div>
+  </div>
+</div>
