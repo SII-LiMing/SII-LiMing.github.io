@@ -7,58 +7,61 @@ redirect_from:
   - /resume
 ---
 
-{% include base_path %}
+<style>
+.award-list {
+  margin-top: 1rem;
+}
+.award-item {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: 1.4rem;
+  padding: 1.2rem 0;
+  border-top: 1px solid var(--global-border-color);
+}
+.award-item:last-child {
+  border-bottom: 1px solid var(--global-border-color);
+}
+.award-year {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #8c8c8c;
+}
+.award-text {
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: #222;
+}
+@media (max-width: 700px) {
+  .award-item {
+    grid-template-columns: 1fr;
+    gap: 0.35rem;
+  }
+}
+</style>
 
-Education
-======
-* Ph.D in Version Control Theory, GitHub University, 2018 (expected)
-* M.S. in Jekyll, GitHub University, 2014
-* B.S. in GitHub, GitHub University, 2012
+<div class="award-list">
+  <div class="award-item">
+    <div class="award-year">2024</div>
+    <div class="award-text">First/Second Prize, People’s Scholarship (awarded multiple times)</div>
+  </div>
 
-Work experience
-======
-* Spring 2024: Academic Pages Collaborator
-  * GitHub University
-  * Duties includes: Updates and improvements to template
-  * Supervisor: The Users
+  <div class="award-item">
+    <div class="award-year">2024</div>
+    <div class="award-text">Outstanding Student &amp; Youth League Member, Harbin Institute of Technology</div>
+  </div>
 
-* Fall 2015: Research Assistant
-  * GitHub University
-  * Duties included: Merging pull requests
-  * Supervisor: Professor Hub
+  <div class="award-item">
+    <div class="award-year">2023</div>
+    <div class="award-text">Provincial First Prize, Chinese Mathematics Competitions (CMC, Non-Mathematics Majors)</div>
+  </div>
 
-* Summer 2015: Research Assistant
-  * GitHub University
-  * Duties included: Tagging issues
-  * Supervisor: Professor Git
-  
-Skills
-======
-* Skill 1
-* Skill 2
-  * Sub-skill 2.1
-  * Sub-skill 2.2
-  * Sub-skill 2.3
-* Skill 3
+  <div class="award-item">
+    <div class="award-year">2023</div>
+    <div class="award-text">Provincial Second Prize, Contemporary Undergraduate Mathematical Contest in Modeling (CUMCM)</div>
+  </div>
 
-Publications
-======
-  <ul>{% for post in site.publications reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Talks
-======
-  <ul>{% for post in site.talks reversed %}
-    {% include archive-single-talk-cv.html  %}
-  {% endfor %}</ul>
-  
-Teaching
-======
-  <ul>{% for post in site.teaching reversed %}
-    {% include archive-single-cv.html %}
-  {% endfor %}</ul>
-  
-Service and leadership
-======
-* Currently signed in to 43 different slack teams
+  <div class="award-item">
+    <div class="award-year">2021</div>
+    <div class="award-text">Provincial First Prize, National High School Mathematics Competition</div>
+  </div>
+</div>

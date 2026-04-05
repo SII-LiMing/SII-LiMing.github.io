@@ -36,14 +36,6 @@ My research focuses on **3D reconstruction** and **3D generation**, with a parti
   line-height: 1.4;
   font-weight: 700;
 }
-.edu-home-title a {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-}
-.edu-home-title a:hover {
-  border-bottom-color: currentColor;
-}
 .edu-home-program {
   margin: 0 0 0.15rem 0;
   font-size: 0.98rem;
@@ -67,6 +59,68 @@ My research focuses on **3D reconstruction** and **3D generation**, with a parti
     <div class="edu-home-title"><a href="https://www.zju.edu.cn/">Zhejiang University</a> - <a href="https://www.westlake.edu.cn/">Westlake University</a> - <a href="https://www.sii.edu.cn/">Shanghai Innovation Institute</a> Joint Program</div>
     <div class="edu-home-program">Ph.D. in Computer Science and Technology</div>
     <div class="edu-home-dates">2025.10 - 2030.6 (expected)</div>
+  </div>
+</div>
+
+## Intern
+
+<style>
+.intern-home-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin: 1rem 0 1.6rem 0;
+}
+.intern-home-media {
+  flex: 0 0 180px;
+  width: 180px;
+}
+.intern-home-media img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  display: block;
+}
+.intern-home-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.intern-home-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.intern-home-role {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.98rem;
+  color: #555;
+}
+.intern-home-desc {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #444;
+}
+@media (max-width: 900px) {
+  .intern-home-card {
+    flex-direction: column;
+  }
+  .intern-home-media {
+    width: 100%;
+    max-width: 240px;
+  }
+}
+</style>
+
+<div class="intern-home-card">
+  <div class="intern-home-media">
+    <img src="{{ '/images/rodin_logo.jpg' | prepend: base_path }}" alt="deemos Rodin logo">
+  </div>
+  <div class="intern-home-content">
+    <div class="intern-home-title"><a href="https://hyper3d.ai/">deemos</a></div>
+    <div class="intern-home-role">Rodin team, Intern Researcher</div>
+    <div class="intern-home-desc">Research on 3D generation and editing.</div>
   </div>
 </div>
 
