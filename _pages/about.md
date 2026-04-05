@@ -21,6 +21,55 @@ My research focuses on **3D reconstruction** and **3D generation**, with a parti
 - 🔬 **2025.7** Joined the [Xiangru Huang Lab](https://rcif.westlake.edu.cn/rcdw/wlcls_2159/pi_2160/202503/t20250323_53628.shtml) at **Westlake University** as a **visiting student**.
 - 🎓 **2025.6** Graduated from **Harbin Institute of Technology** with a **B.Eng.**
 
+## Education
+
+<style>
+.edu-home-list { margin-top: 1rem; }
+.edu-home-entry {
+  margin: 0 0 1.4rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #d8d8d8;
+}
+.edu-home-title {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.edu-home-title a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.edu-home-title a:hover {
+  border-bottom-color: currentColor;
+}
+.edu-home-program {
+  margin: 0 0 0.15rem 0;
+  font-size: 0.98rem;
+  color: #555;
+}
+.edu-home-dates {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+</style>
+
+<div class="edu-home-list">
+  <div class="edu-home-entry">
+    <div class="edu-home-title"><a href="https://www.hit.edu.cn/">Harbin Institute of Technology</a></div>
+    <div class="edu-home-program">B.Eng. in Computer Science and Technology</div>
+    <div class="edu-home-dates">2021.9 - 2025.7</div>
+  </div>
+
+  <div class="edu-home-entry">
+    <div class="edu-home-title"><a href="https://www.zju.edu.cn/">Zhejiang University</a> - <a href="https://www.westlake.edu.cn/">Westlake University</a> - <a href="https://www.sii.edu.cn/">Shanghai Innovation Institute</a> Joint Program</div>
+    <div class="edu-home-program">Ph.D. in Computer Science and Technology</div>
+    <div class="edu-home-dates">2025.10 - 2030.6 (expected)</div>
+  </div>
+</div>
+
 ## Publications
 
 <style>
@@ -126,106 +175,4 @@ My research focuses on **3D reconstruction** and **3D generation**, with a parti
       </div>
     </div>
   {% endfor %}
-</div>
-
-## Education
-
-<style>
-.edu-home-list {
-  margin-top: 1rem;
-}
-.edu-home-card {
-  display: flex;
-  gap: 1.2rem;
-  align-items: flex-start;
-  margin: 0 0 1.6rem 0;
-}
-.edu-home-media {
-  flex: 0 0 180px;
-  width: 180px;
-}
-.edu-home-placeholder {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border: 1px solid var(--global-border-color);
-  border-radius: 10px;
-  background: linear-gradient(135deg, #f8f8f8, #efefef);
-  color: #777;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-size: 0.95rem;
-  font-weight: 700;
-  line-height: 1.4;
-  padding: 1rem;
-}
-.edu-home-content {
-  flex: 1 1 auto;
-  min-width: 0;
-}
-.edu-home-title {
-  margin: 0 0 0.25rem 0;
-  font-size: 1.2rem;
-  line-height: 1.35;
-  font-weight: 700;
-}
-.edu-home-program {
-  margin: 0 0 0.3rem 0;
-  font-size: 0.98rem;
-  line-height: 1.6;
-  color: #555;
-}
-.edu-home-dates {
-  margin: 0.35rem 0 0.75rem 0;
-  font-size: 0.98rem;
-  font-weight: 700;
-  color: #222;
-}
-.edu-home-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.45rem 0.55rem;
-}
-@media (max-width: 900px) {
-  .edu-home-card {
-    flex-direction: column;
-  }
-  .edu-home-media {
-    width: 100%;
-    max-width: 260px;
-  }
-}
-</style>
-
-<div class="edu-home-list">
-  <div class="edu-home-card">
-    <div class="edu-home-media">
-      <div class="edu-home-placeholder">Harbin Institute of Technology</div>
-    </div>
-    <div class="edu-home-content">
-      <div class="edu-home-title">Harbin Institute of Technology</div>
-      <div class="edu-home-program">B.Eng. in Computer Science and Technology</div>
-      <div class="edu-home-dates">2021.9 - 2025.7</div>
-      <div class="edu-home-links">
-        <a class="btn btn--inverse btn--small" href="https://www.hit.edu.cn/">University Website</a>
-      </div>
-    </div>
-  </div>
-
-  <div class="edu-home-card">
-    <div class="edu-home-media">
-      <div class="edu-home-placeholder">ZJU - Westlake - SII Joint Program</div>
-    </div>
-    <div class="edu-home-content">
-      <div class="edu-home-title">Zhejiang University - Westlake University - Shanghai Innovation Institute Joint Program</div>
-      <div class="edu-home-program">Ph.D. in Computer Science and Technology</div>
-      <div class="edu-home-dates">2025.10 - 2030.6 (expected)</div>
-      <div class="edu-home-links">
-        <a class="btn btn--inverse btn--small" href="https://www.zju.edu.cn/">ZJU</a>
-        <a class="btn btn--inverse btn--small" href="https://www.westlake.edu.cn/">Westlake</a>
-        <a class="btn btn--inverse btn--small" href="https://www.sii.edu.cn/">SII</a>
-      </div>
-    </div>
-  </div>
 </div>
