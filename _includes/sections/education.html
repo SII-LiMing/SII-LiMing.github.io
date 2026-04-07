@@ -1,0 +1,67 @@
+{% if include.compact %}
+<style>
+.edu-list {
+  margin-top: 1rem;
+}
+.edu-entry {
+  margin: 0 0 1.4rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #d8d8d8;
+}
+.edu-title {
+  margin: 0 0 0.2rem 0;
+  font-size: 1.15rem;
+  line-height: 1.4;
+  font-weight: 700;
+}
+.edu-program {
+  margin: 0 0 0.15rem 0;
+  font-size: 0.98rem;
+  color: #555;
+}
+.edu-dates {
+  margin: 0;
+  font-size: 0.95rem;
+  color: #666;
+}
+</style>
+{% else %}
+<style>
+.edu-list {
+  margin-top: 1.5rem;
+}
+.edu-entry {
+  margin: 0 0 1.6rem 0;
+  padding-left: 1rem;
+  border-left: 3px solid #d8d8d8;
+}
+.edu-title {
+  margin: 0 0 0.3rem 0;
+  font-size: 1.4rem;
+  line-height: 1.35;
+  font-weight: 700;
+  color: #111;
+}
+.edu-program {
+  margin: 0 0 0.35rem 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #555;
+}
+.edu-dates {
+  margin: 0;
+  font-size: 1rem;
+  color: #666;
+}
+</style>
+{% endif %}
+
+<div class="edu-list">
+  {% for item in site.data.education %}
+    <div class="edu-entry">
+      <div class="edu-title">{{ item.title_html }}</div>
+      <div class="edu-program">{{ item.program }}</div>
+      <div class="edu-dates">{{ item.dates }}</div>
+    </div>
+  {% endfor %}
+</div>

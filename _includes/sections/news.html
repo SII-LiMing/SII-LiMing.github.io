@@ -1,0 +1,26 @@
+<style>
+.news-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+.news-item {
+  margin: 0 0 1rem 0;
+  line-height: 1.7;
+}
+.news-date {
+  display: inline-block;
+  min-width: 5.8rem;
+  font-weight: 700;
+  color: #444;
+}
+.news-highlight {
+  font-weight: 700;
+}
+</style>
+
+<ul class="news-list">
+  {% for item in site.data.news %}
+    <li class="news-item"><span class="news-date">{{ item.icon }} {{ item.date }}</span>{{ item.html }}</li>
+  {% endfor %}
+</ul>

@@ -1,6 +1,15 @@
 # Configure Personal Website Guide
 
-这份文档说明如何修改和添加以下几个部分：
+这份文档说明如何修改和添加以下几个部分。
+
+当前网站已经做了**单一内容源重构**：
+
+- `About` 页面和对应独立页面不再各自维护一份内容
+- 而是通过 `_data/*.yml` + `_includes/sections/*.html` 共享同一份源
+
+也就是说，后续如果你要同时更新首页和对应栏目页，通常只需要改一份数据或一个 section include。
+
+这份文档覆盖以下几个部分：
 
 - `News`
 - `Education`
@@ -14,7 +23,15 @@
 
 ## 1. News
 
-`News` 页对应文件：
+`News` 的共享数据源：
+
+`/Users/syu/LiMing/lm.github.io/_data/news.yml`
+
+`News` 的展示模板：
+
+`/Users/syu/LiMing/lm.github.io/_includes/sections/news.html`
+
+`News` 独立页面对应文件：
 
 `/Users/syu/LiMing/lm.github.io/_pages/talks.html`
 
@@ -24,33 +41,50 @@
 
 ### 修改方法
 
-现在 `News` 使用的是固定 HTML 列表结构。每一条新闻大致长这样：
+现在 `talks.html` 和 `about.md` 都只是引用：
 
-```html
-<li class="news-item"><span class="news-date">🚀 2026.4</span> Joined <a href="https://hyper3d.ai/">Rodin</a> as an <span class="news-highlight">Intern Researcher</span>.</li>
+```liquid
+{% include sections/news.html %}
 ```
 
-你主要可以修改：
+真正的数据在 `news.yml`。每一条新闻大致长这样：
 
-- `news-date`
-  左侧日期和图标
+```yaml
+- date: "2026.4"
+  icon: "🚀"
+  html: 'Joined <a href="https://hyper3d.ai/">Rodin</a> as an <span class="news-highlight">Intern Researcher</span>.'
+```
 
-- 文本内容
-  右侧新闻正文
+你主要修改：
 
-- `<a href="...">`
-  超链接
+- `date`
+  日期
 
-- `<span class="news-highlight">...</span>`
-  需要强调的词
+- `icon`
+  左侧图标
+
+- `html`
+  新闻正文，里面可以包含链接和高亮 HTML
 
 ### 添加新 News
 
-直接在 `news-list` 里面新增一条 `<li class="news-item">...</li>` 即可。
+直接在：
+
+`/Users/syu/LiMing/lm.github.io/_data/news.yml`
+
+里新增一条 YAML 记录即可。
 
 建议把最新的放在最上面。
 
 ## 2. Education
+
+`Education` 的共享数据源：
+
+`/Users/syu/LiMing/lm.github.io/_data/education.yml`
+
+`Education` 的展示模板：
+
+`/Users/syu/LiMing/lm.github.io/_includes/sections/education.html`
 
 `Education` 独立页面对应文件：
 
@@ -62,36 +96,41 @@
 
 ### 修改方法
 
-当前 `Education` 用的是条目式结构，每段经历大致是这样：
+现在 `teaching.html` 和 `about.md` 都只是引用 include。
 
-```html
-<div class="edu-entry">
-  <div class="edu-title"><a href="https://www.hit.edu.cn/">Harbin Institute of Technology</a></div>
-  <div class="edu-program">B.Eng. in Computer Science and Technology</div>
-  <div class="edu-dates">2021.9 - 2025.7</div>
-</div>
+真正的数据在 `education.yml`。每段经历大致是这样：
+
+```yaml
+- title_html: '<a href="https://www.hit.edu.cn/">Harbin Institute of Technology</a>'
+  program: "B.Eng. in Computer Science and Technology"
+  dates: "2021.9 - 2025.7"
 ```
 
 你主要可以改：
 
-- 学校名
-- 学校官网链接
+- `title_html`
+  学校名和超链接
+
 - 专业
 - 时间
 
 ### 添加新的 Education
 
-复制一整段：
+直接在：
 
-```html
-<div class="edu-entry"> ... </div>
-```
+`/Users/syu/LiMing/lm.github.io/_data/education.yml`
 
-然后修改内容即可。
-
-如果要在首页和独立页面都保持一致，建议两个文件同时修改。
+里新增一条 YAML 记录即可。
 
 ## 3. Intern
+
+`Intern` 的共享数据源：
+
+`/Users/syu/LiMing/lm.github.io/_data/intern.yml`
+
+`Intern` 的展示模板：
+
+`/Users/syu/LiMing/lm.github.io/_includes/sections/intern.html`
 
 `Intern` 页面对应文件：
 
@@ -103,28 +142,38 @@
 
 ### 修改方法
 
-当前 `Intern` 的结构大致是：
+现在 `portfolio.html` 和 `about.md` 都是通过 include 渲染。
 
-```html
-<div class="intern-home-card">
-  <div class="intern-home-media">
-    <img src="{{ '/images/rodin_logo.jpg' | prepend: base_path }}" alt="deemos Rodin logo">
-  </div>
-  <div class="intern-home-content">
-    <div class="intern-home-title"><a href="https://hyper3d.ai/">deemos</a></div>
-    <div class="intern-home-role">Rodin team, Intern Researcher</div>
-    <div class="intern-home-desc">Research on 3D generation and editing.</div>
-  </div>
-</div>
+真正的数据在：
+
+`/Users/syu/LiMing/lm.github.io/_data/intern.yml`
+
+结构大致如下：
+
+```yaml
+company_html: '<a href="https://hyper3d.ai/">deemos</a>'
+team_role: "Rodin team, Intern Researcher"
+description: "Research on 3D generation and editing."
+logo: "rodin_logo.jpg"
+logo_alt: "deemos Rodin logo"
 ```
 
 你主要可以改：
 
-- 图片路径
-- 公司名
-- 公司链接
-- 岗位标题
-- 描述
+- `company_html`
+  公司名和超链接
+
+- `team_role`
+  第二行
+
+- `description`
+  描述
+
+- `logo`
+  图片文件名
+
+- `logo_alt`
+  图片说明文字
 
 ### 替换图片
 
@@ -136,13 +185,21 @@
 
 `/Users/syu/LiMing/lm.github.io/images/company_logo.jpg`
 
-然后把页面里的 `src` 改成：
+然后在 `intern.yml` 里把：
 
-```liquid
-{{ '/images/company_logo.jpg' | prepend: base_path }}
+```yaml
+logo: "company_logo.jpg"
 ```
 
+改掉即可。
+
 ## 4. Publications
+
+`Publications` 目前的内容源已经是单一的，不存在首页和独立页分别维护条目数据的问题。
+
+首页和独立页面都通过同一个 section 模板渲染：
+
+- `/Users/syu/LiMing/lm.github.io/_includes/sections/publications.html`
 
 以下内容直接复用现有 publication 教程。
 
@@ -287,38 +344,46 @@ git push origin main
 
 ## 5. Honors&Awards
 
+`Honors&Awards` 的共享数据源：
+
+`/Users/syu/LiMing/lm.github.io/_data/honors.yml`
+
+`Honors&Awards` 的展示模板：
+
+`/Users/syu/LiMing/lm.github.io/_includes/sections/honors.html`
+
 `Honors&Awards` 页面对应文件：
 
 `/Users/syu/LiMing/lm.github.io/_pages/cv.md`
 
 ### 修改方法
 
-当前奖项使用时间排序条目结构：
+现在 `cv.md` 只负责 include，真正的数据在：
 
-```html
-<div class="award-item">
-  <div class="award-year">2024</div>
-  <div class="award-text">Outstanding Student &amp; Youth League Member, Harbin Institute of Technology</div>
-</div>
+`/Users/syu/LiMing/lm.github.io/_data/honors.yml`
+
+每条奖项大致这样写：
+
+```yaml
+- year: "2024"
+  text: "Outstanding Student & Youth League Member, Harbin Institute of Technology"
 ```
 
 你主要可以改：
 
-- `award-year`
+- `year`
   左侧年份
 
-- `award-text`
+- `text`
   奖项名称和说明
 
 ### 添加新的奖项
 
-复制一整段：
+直接在：
 
-```html
-<div class="award-item"> ... </div>
-```
+`/Users/syu/LiMing/lm.github.io/_data/honors.yml`
 
-然后修改年份和奖项内容即可。
+里新增一条 YAML 记录即可。
 
 建议按照时间从新到旧排列。
 

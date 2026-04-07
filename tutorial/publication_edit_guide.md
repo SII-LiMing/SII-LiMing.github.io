@@ -1,8 +1,8 @@
 # Publication Edit Guide
 
-当前 publication 页面由这两个位置控制：
+当前 publication 页面主要由这两个位置控制：
 
-- 页面模板：`/Users/syu/LiMing/lm.github.io/_pages/publications.html`
+- 展示模板：`/Users/syu/LiMing/lm.github.io/_includes/sections/publications.html`
 - 论文条目：`/Users/syu/LiMing/lm.github.io/_publications/*.md`
 
 ## 1. 新增一篇论文
@@ -102,9 +102,9 @@ teaser: "reweaver_teaser.png"
 
 ## 5. 如何修改 publication 页面排版
 
-排版代码在：
+排版代码现在在：
 
-`/Users/syu/LiMing/lm.github.io/_pages/publications.html`
+`/Users/syu/LiMing/lm.github.io/_includes/sections/publications.html`
 
 你主要会改到两类内容：
 

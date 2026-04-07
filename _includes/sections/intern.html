@@ -1,0 +1,117 @@
+{% include base_path %}
+
+{% if include.compact %}
+<style>
+.intern-card {
+  display: flex;
+  gap: 1.2rem;
+  align-items: flex-start;
+  margin: 1rem 0 1.6rem 0;
+}
+.intern-media {
+  flex: 0 0 180px;
+  width: 180px;
+}
+.intern-media img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  display: block;
+}
+.intern-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.intern-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  font-weight: 700;
+}
+.intern-role {
+  margin: 0 0 0.35rem 0;
+  font-size: 0.98rem;
+  color: #555;
+}
+.intern-desc {
+  margin: 0;
+  font-size: 0.98rem;
+  line-height: 1.65;
+  color: #444;
+}
+@media (max-width: 900px) {
+  .intern-card {
+    flex-direction: column;
+  }
+  .intern-media {
+    width: 100%;
+    max-width: 240px;
+  }
+}
+</style>
+{% else %}
+<style>
+.intern-card {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  margin-top: 1.5rem;
+}
+.intern-media {
+  flex: 0 0 220px;
+  width: 220px;
+}
+.intern-media img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 10px;
+  display: block;
+}
+.intern-content {
+  flex: 1 1 auto;
+  min-width: 0;
+}
+.intern-title {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.9rem;
+  line-height: 1.25;
+  font-weight: 700;
+  color: #111;
+}
+.intern-role {
+  margin: 0 0 0.45rem 0;
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #555;
+}
+.intern-desc {
+  margin: 0.5rem 0 1rem 0;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+}
+@media (max-width: 900px) {
+  .intern-card {
+    flex-direction: column;
+  }
+  .intern-media {
+    width: 100%;
+    max-width: 260px;
+  }
+  .intern-title {
+    font-size: 1.4rem;
+  }
+}
+</style>
+{% endif %}
+
+<div class="intern-card">
+  <div class="intern-media">
+    <img src="{{ site.data.intern.logo | prepend: '/images/' | prepend: base_path }}" alt="{{ site.data.intern.logo_alt }}">
+  </div>
+  <div class="intern-content">
+    <div class="intern-title">{{ site.data.intern.company_html }}</div>
+    <div class="intern-role">{{ site.data.intern.team_role }}</div>
+    <div class="intern-desc">{{ site.data.intern.description }}</div>
+  </div>
+</div>
