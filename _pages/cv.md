@@ -41,7 +41,7 @@ redirect_from:
 
 <div class="award-list">
   <div class="award-item">
-    <div class="award-year">2024</div>
+    <div class="award-year">2021-2025</div>
     <div class="award-text">First/Second Prize, People’s Scholarship (awarded multiple times)</div>
   </div>
 
@@ -56,12 +56,12 @@ redirect_from:
   </div>
 
   <div class="award-item">
-    <div class="award-year">2023</div>
+    <div class="award-year">2022</div>
     <div class="award-text">Provincial Second Prize, Contemporary Undergraduate Mathematical Contest in Modeling (CUMCM)</div>
   </div>
 
   <div class="award-item">
-    <div class="award-year">2021</div>
+    <div class="award-year">2020</div>
     <div class="award-text">Provincial First Prize, National High School Mathematics Competition</div>
   </div>
 </div>
