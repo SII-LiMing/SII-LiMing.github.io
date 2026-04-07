@@ -15,10 +15,3 @@ dataseturl:
 pressurl:
 ---
 
-<div style="margin: 1.5rem 0; text-align: center;">
-  <img
-    src="{{ '/images/pub/RoboDrive.png' | relative_url }}"
-    alt="RoboDrive Challenge 2024 pipeline overview"
-    style="display: block; width: 100%; max-width: 100%; height: auto; margin: 0 auto;"
-  >
-</div>
