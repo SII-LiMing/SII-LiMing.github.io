@@ -1,5 +1,5 @@
 ---
-title: "RoboDrive Challenge 2024"
+title: "The robodrive challenge: Drive anytime anywhere in any condition"
 collection: publications
 category: conferences
 permalink: /publication/robodrive-challenge-2024
