@@ -72,16 +72,20 @@ $$
 **Ordinary differential equation(ODE)**
 
 $$
+\begin{gathered}
 X_0 = x_0 (initial \,\, condition)\\
 \frac{d}{dt}X_t = u_t(X_t)
+\end{gathered}
 $$
 
 **Flow**
 
 $$
+\begin{gathered}
 \psi:\mathbb{R}^d\times [0,1]\to \mathbb{R}^d ,\, (x_0,t)\mapsto \psi_t(x_0)\\
 \psi_0(x_0) = x_0\\
 \frac{d}{dt}\psi_t(x_0)=u_t(\psi_t(x_0))
+\end{gathered}
 $$
 
 
@@ -164,8 +168,10 @@ $$
 为了注入随机性，Flow Model 中的 ODE 在这里改写成的 SDE:
 
 $$
+\begin{gathered}
 X_0 = x_0 (initial \,\, condition)\\
 dX_t = u_t(X_t)dt + \sigma_t dW_t
+\end{gathered}
 $$
 
 这里的 $W_t$ 是一个**布朗运动（Brownian Motion）**

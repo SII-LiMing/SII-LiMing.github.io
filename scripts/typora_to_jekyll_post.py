@@ -5,7 +5,8 @@ Convert a Typora markdown note into a Jekyll blog post.
 This script handles the common differences between Typora/GitHub-flavored
 notes and this Academic Pages/Jekyll site:
 
-1. Normalize display math blocks so MathJax can parse standalone $$ blocks.
+1. Normalize display math blocks and wrap top-level ``\\`` rows in
+   ``gathered`` so MathJax renders them on separate lines.
 2. Copy local markdown/html image assets into the public images directory.
 3. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
 4. Add Jekyll front matter when the source note does not already have it.
@@ -149,14 +150,76 @@ def convert_callouts(text: str) -> str:
     return "\n".join(output) + ("\n" if text.endswith("\n") else "")
 
 
+def has_top_level_row_break(lines: list[str]) -> bool:
+    """Return whether a math block contains ``\\`` outside nested structures."""
+    environment_depth = 0
+    brace_depth = 0
+    begin_pattern = re.compile(r"\\begin\s*\{[^{}]+\}")
+    end_pattern = re.compile(r"\\end\s*\{[^{}]+\}")
+
+    for line in lines:
+        index = 0
+        while index < len(line):
+            character = line[index]
+
+            # An unescaped percent sign starts a TeX comment. Escaped percent
+            # signs are consumed by the backslash branch below.
+            if character == "%":
+                break
+
+            if character != "\\":
+                if character == "{":
+                    brace_depth += 1
+                elif character == "}" and brace_depth:
+                    brace_depth -= 1
+                index += 1
+                continue
+
+            begin_match = begin_pattern.match(line, index)
+            if begin_match:
+                environment_depth += 1
+                index = begin_match.end()
+                continue
+
+            end_match = end_pattern.match(line, index)
+            if end_match:
+                environment_depth = max(0, environment_depth - 1)
+                index = end_match.end()
+                continue
+
+            if line.startswith("\\\\", index):
+                if environment_depth == 0 and brace_depth == 0:
+                    return True
+                index += 2
+                continue
+
+            # Skip a TeX control word or escaped symbol so constructs such as
+            # \% and \{ do not affect comment or brace tracking.
+            index += 1
+            if index < len(line) and line[index].isalpha():
+                while index < len(line) and line[index].isalpha():
+                    index += 1
+            elif index < len(line):
+                index += 1
+
+    return False
+
+
 def normalize_display_math(text: str) -> str:
-    """Make standalone $$ blocks parse reliably after Jekyll markdown rendering."""
+    """Normalize standalone ``$$`` blocks for Jekyll and MathJax."""
     lines = text.splitlines()
     output: list[str] = []
     in_fence = False
     in_math = False
+    math_content_start: int | None = None
+    just_closed_math = False
 
     for line in lines:
+        if just_closed_math:
+            if not line.strip():
+                continue
+            just_closed_math = False
+
         if is_fence_line(line) and not in_math:
             in_fence = not in_fence
             output.append(line)
@@ -172,10 +235,21 @@ def normalize_display_math(text: str) -> str:
                     output.append("")
                 output.append("$$")
                 in_math = True
+                math_content_start = len(output)
             else:
+                if math_content_start is not None:
+                    math_lines = output[math_content_start:]
+                    if has_top_level_row_break(math_lines):
+                        output[math_content_start:] = [
+                            r"\begin{gathered}",
+                            *math_lines,
+                            r"\end{gathered}",
+                        ]
                 output.append("$$")
                 output.append("")
                 in_math = False
+                math_content_start = None
+                just_closed_math = True
             continue
 
         if in_math and not line.strip():

@@ -249,8 +249,9 @@ defaults:
       author_profile: false
       read_time: true
       comments: true
-      share: true
-      related: true
+      share: false # Set to true to restore the "Share on" section.
+      related: false # Set to true to restore "You May Also Enjoy".
+      hide_post_navigation: true # Set to false to restore Previous/Next links.
   # _pages
   - scope:
       path: ""

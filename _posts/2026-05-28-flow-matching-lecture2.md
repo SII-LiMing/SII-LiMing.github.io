@@ -83,8 +83,10 @@ $$
 我们将 $\alpha$ 和 $\beta$ 视作某种 noise schedulers. 为满足 (3) , 这里需要满足
 
 $$
+\begin{gathered}
 \alpha_0 = 0, \beta_0 = 1\\
 \alpha_1 = 1, \beta_1 = 0
+\end{gathered}
 $$
 
 除此之外, $\alpha_t$ 和 $\beta_t$ 应该 “光滑”. 在满足这些要求的情况下,  $\alpha_t$ 和 $\beta_t$ 可以自由选取. 
@@ -92,10 +94,12 @@ $$
 比如, 我们可以取
 
 $$
+\begin{gathered}
 \alpha_t =t; \,\, \beta_t = 1-t\\
 \alpha_t =\sin{\frac{\pi t}{2}}; \,\, \beta_t = \cos{\frac{\pi t}{2}}\\
 \alpha_t =\sqrt t; \,\, \beta_t = \sqrt{1-t}\\
 ...
+\end{gathered}
 $$
 
 
@@ -136,8 +140,10 @@ $$
 可以推导出
 
 $$
+\begin{gathered}
 p_0(t)=p_{init}\\
 p_1(t)=p_{data}
+\end{gathered}
 $$
 
 这个推导过程繁琐但显然, 直观上这件事也比较好理解.
