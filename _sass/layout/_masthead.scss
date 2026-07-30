@@ -52,6 +52,10 @@
     clear: both;
     list-style-type: none;
   }
+
+  .masthead__primary-nav {
+    margin: 0 auto;
+  }
 }
 
 .masthead__menu-item {
@@ -78,4 +82,35 @@
   color: var(--global-text-color);
   border-bottom: 2px solid var(--global-text-color);
   /* No need to repeat pointer-events and cursor here */
+}
+
+/* Keep primary navigation centered and utility controls right-aligned. */
+.masthead .greedy-nav {
+  padding-right: 3rem;
+  padding-left: 3rem;
+
+  > button,
+  .hidden-links {
+    right: 3rem;
+  }
+
+  > .masthead__theme-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    margin: 0;
+    padding: 0;
+    color: var(--global-masthead-link-color);
+    cursor: pointer;
+    transform: translateY(-50%);
+
+    &:hover {
+      color: var(--global-masthead-link-color-hover);
+    }
+  }
 }

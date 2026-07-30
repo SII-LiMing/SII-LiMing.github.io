@@ -4,17 +4,15 @@
     <div class="masthead__menu">
       <nav id="site-nav" class="greedy-nav">
         <button><span class="navicon"></span></button>
-        <ul class="visible-links">
-          <li class="masthead__menu-item masthead__menu-item--lg persist {% if page.url == '/' or page.url == '/index.html' %}selected{% endif %}">
+        <ul class="visible-links masthead__primary-nav">
+          <li class="masthead__menu-item persist {% if page.url == '/' or page.url == '/index.html' %}selected{% endif %}">
             <a href="{{ base_path }}/">About Me</a>
           </li>
           <li class="masthead__menu-item {% if page.url == '/year-archive/' or page.collection == 'posts' %}selected{% endif %}">
             <a href="{{ base_path }}/year-archive/">Blog</a>
           </li>
-          <li id="theme-toggle" class="masthead__menu-item persist tail">
-            <a role="button" aria-labelledby="theme-icon"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true" title="toggle theme"></i></a>
-          </li>
         </ul>
+        <a id="theme-toggle" class="masthead__theme-toggle" role="button" tabindex="0" aria-label="Toggle light and dark theme"><i id="theme-icon" class="fa-solid fa-sun" aria-hidden="true"></i></a>
         <ul class="hidden-links hidden"></ul>
       </nav>
     </div>
