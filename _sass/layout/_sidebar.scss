@@ -137,49 +137,64 @@
 }
 
 /* About page section navigation */
+.page.page--with-section-nav {
+  @include breakpoint($large) {
+    padding-right: 0;
+  }
+}
+
+.page__content--with-section-nav {
+  @include breakpoint($large) {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 190px;
+    grid-template-areas: "content navigation";
+    column-gap: 3rem;
+    align-items: start;
+  }
+}
+
+.page__content-main {
+  min-width: 0;
+
+  @include breakpoint($large) {
+    grid-area: content;
+  }
+}
+
 .about__section-nav {
+  margin: 0 0 1.5rem;
   width: 100%;
+  overflow: hidden;
+  background: var(--global-bg-color);
+  border: 1px solid var(--global-border-color);
+  border-radius: $border-radius;
 
-  .toc {
-    padding: 0;
-    overflow: hidden;
-    color: var(--global-text-color);
-    text-transform: none;
-    letter-spacing: 0;
-    background: var(--global-bg-color);
-    box-shadow: none;
-
-    .nav__title {
-      margin: 0;
-      padding: 0.75rem 1rem;
-      color: var(--global-text-color);
-      font-size: $type-size-6;
-      background: var(--global-border-color);
-    }
+  ul {
+    margin: 0;
+    padding: 0.45rem 0;
+    list-style: none;
   }
 
-  .toc__menu {
-    font-size: 1rem;
+  a {
+    display: block;
+    padding: 0.55rem 1rem;
+    color: var(--global-text-color);
+    font-size: 0.8rem;
+    font-weight: 600;
+    line-height: 1.4;
+    text-decoration: none;
 
-    a {
-      padding: 0.55rem 1rem;
-      color: var(--global-text-color);
-      font-size: 0.8rem;
-      font-weight: 500;
-      line-height: 1.4;
-
-      &:hover {
-        color: var(--global-link-color-hover);
-        background: transparent;
-      }
+    &:hover {
+      color: var(--global-link-color-hover);
+      text-decoration: none;
     }
   }
 
   @include breakpoint($large) {
+    grid-area: navigation;
     position: sticky;
     top: calc(#{$masthead-height} + 1.5rem);
-    width: 190px;
-    margin-left: 2rem;
+    margin: 0;
   }
 }
 

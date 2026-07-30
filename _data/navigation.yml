@@ -1,8 +1,8 @@
 # The following is the order of the links in the header of the website.
 #
-# The home link ("About Me") is rendered from `masthead_title` in _config.yml.
-# Removing a link here only removes it from the header; the underlying page or
-# collection remains available to the consolidated About Me page.
+# The masthead is intentionally fixed to "About Me" and "Blog" in
+# _includes/masthead.html. This legacy entry is kept for compatibility with
+# code that may still consume `site.data.navigation.main`.
 
 main:
   - title: "Blog"
