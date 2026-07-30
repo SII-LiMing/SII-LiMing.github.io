@@ -67,7 +67,7 @@ $$
 4. $p_t(\cdot \mid z)$ 是在 $p_0$ 和 $p_1$ 之间的平滑插值.
 </div>
 
-我们可以==选择==构建 Gaussian conditional probability path: 
+我们可以<mark>选择</mark>构建 Gaussian conditional probability path:
 
 $$
 p_t(\cdot \mid z) = \mathcal{N}(\alpha_t z, \beta^2_t I_d)
@@ -135,7 +135,7 @@ p_t(x) = \int_{\mathbb{R}^d} p_t(x \mid z)p_{data}(z)dz
 $$
 
 
-(9) 是一个定积分, 但是积分区域 $\mathbb{R}^d$ 因为是这个域, 所以往往省略. 
+(9) 是一个定积分, 但是积分区域 $\mathbb{R}^d$ 因为是整个域, 所以往往省略. 
 
 可以推导出
 

@@ -9,9 +9,10 @@ notes and this Academic Pages/Jekyll site:
    a duplicate title below the Jekyll page title.
 2. Normalize display math blocks and wrap top-level ``\\`` rows in
    ``gathered`` so MathJax renders them on separate lines.
-3. Copy local markdown/html image assets into the public images directory.
-4. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
-5. Add Jekyll front matter when the source note does not already have it.
+3. Convert Typora ``==highlight==`` syntax into semantic HTML ``<mark>``.
+4. Copy local markdown/html image assets into the public images directory.
+5. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
+6. Add Jekyll front matter when the source note does not already have it.
 """
 
 from __future__ import annotations
@@ -187,6 +188,130 @@ def convert_callouts(text: str) -> str:
             output.append("")
             output.extend(body)
         output.append("</div>")
+
+    return "\n".join(output) + ("\n" if text.endswith("\n") else "")
+
+
+def is_escaped(text: str, index: int) -> bool:
+    """Return whether the character at ``index`` is backslash-escaped."""
+    backslashes = 0
+    index -= 1
+    while index >= 0 and text[index] == "\\":
+        backslashes += 1
+        index -= 1
+    return backslashes % 2 == 1
+
+
+def find_unescaped(text: str, delimiter: str, start: int) -> int:
+    """Find the next unescaped delimiter, or return ``-1``."""
+    index = text.find(delimiter, start)
+    while index != -1:
+        if not is_escaped(text, index):
+            return index
+        index = text.find(delimiter, index + len(delimiter))
+    return -1
+
+
+def convert_typora_highlights_in_line(line: str) -> str:
+    """Convert ``==text==`` outside inline code, math, and HTML tags."""
+    output: list[str] = []
+    index = 0
+
+    while index < len(line):
+        character = line[index]
+
+        if character == "<":
+            tag_end = line.find(">", index + 1)
+            if tag_end != -1:
+                output.append(line[index : tag_end + 1])
+                index = tag_end + 1
+                continue
+
+        if character == "`" and not is_escaped(line, index):
+            delimiter_end = index + 1
+            while delimiter_end < len(line) and line[delimiter_end] == "`":
+                delimiter_end += 1
+            delimiter = line[index:delimiter_end]
+            code_end = line.find(delimiter, delimiter_end)
+            if code_end != -1:
+                code_end += len(delimiter)
+                output.append(line[index:code_end])
+                index = code_end
+                continue
+
+        if character == "$" and not is_escaped(line, index):
+            delimiter = "$$" if line.startswith("$$", index) else "$"
+            math_end = find_unescaped(line, delimiter, index + len(delimiter))
+            if math_end != -1:
+                math_end += len(delimiter)
+                output.append(line[index:math_end])
+                index = math_end
+                continue
+
+        is_opening_delimiter = (
+            line.startswith("==", index)
+            and not is_escaped(line, index)
+            and (index == 0 or line[index - 1] != "=")
+            and index + 2 < len(line)
+            and line[index + 2] != "="
+            and not line[index + 2].isspace()
+        )
+        if is_opening_delimiter:
+            closing_index = line.find("==", index + 2)
+            while closing_index != -1:
+                is_exact_closing_delimiter = (
+                    not is_escaped(line, closing_index)
+                    and line[closing_index - 1] != "="
+                    and (
+                        closing_index + 2 == len(line)
+                        or line[closing_index + 2] != "="
+                    )
+                )
+                highlighted = line[index + 2 : closing_index]
+                if (
+                    is_exact_closing_delimiter
+                    and highlighted
+                    and not highlighted[-1].isspace()
+                ):
+                    output.append(f"<mark>{highlighted}</mark>")
+                    index = closing_index + 2
+                    break
+                closing_index = line.find("==", closing_index + 2)
+            else:
+                output.append(character)
+                index += 1
+            if closing_index != -1:
+                continue
+            continue
+
+        output.append(character)
+        index += 1
+
+    return "".join(output)
+
+
+def convert_typora_highlights(text: str) -> str:
+    """Convert Typora highlights while preserving fenced and display math blocks."""
+    lines = text.splitlines()
+    output: list[str] = []
+    in_fence = False
+    in_display_math = False
+
+    for line in lines:
+        if is_fence_line(line) and not in_display_math:
+            in_fence = not in_fence
+            output.append(line)
+            continue
+
+        if not in_fence and line.strip() == "$$":
+            in_display_math = not in_display_math
+            output.append(line)
+            continue
+
+        if in_fence or in_display_math:
+            output.append(line)
+        else:
+            output.append(convert_typora_highlights_in_line(line))
 
     return "\n".join(output) + ("\n" if text.endswith("\n") else "")
 
@@ -473,6 +598,7 @@ def convert(args: argparse.Namespace) -> Path:
 
     copied: dict[Path, str] = {}
     body = convert_callouts(body)
+    body = convert_typora_highlights(body)
     body = normalize_display_math(body)
     body = rewrite_markdown_images(body, source_md, repo_root, asset_dir, copied)
     body = rewrite_html_images(body, source_md, repo_root, asset_dir, copied)
