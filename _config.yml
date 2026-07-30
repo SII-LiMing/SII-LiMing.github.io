@@ -10,6 +10,7 @@
 locale                   : "en-US"
 site_theme               : "default" # The available themes options are "default", "air", "sunrise", "mint", "dirt" and "contrast"
 title                    : "Ming Li"
+masthead_title           : "About Me"
 title_separator          : "-"
 name                     : &name "Ming Li"
 description              : &description "Academic homepage template for Ming Li"   # Update this with a general description of your site, this is the default if not overridden by a page

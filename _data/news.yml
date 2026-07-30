@@ -1,3 +1,6 @@
+- date: "2026.6"
+  icon: "📄"
+  html: 'One paper was accepted to <span class="news-highlight">ECCV 2026</span>: <a href="https://arxiv.org/abs/2603.16085">Interact3D</a> (<span class="news-highlight">third author</span>).'
 - date: "2026.4"
   icon: "🚀"
   html: 'Joined <a href="https://hyper3d.ai/">Rodin</a> as an <span class="news-highlight">Intern Researcher</span>.'
