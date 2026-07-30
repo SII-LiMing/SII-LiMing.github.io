@@ -9,7 +9,8 @@ notes and this Academic Pages/Jekyll site:
    a duplicate title below the Jekyll page title.
 2. Normalize display math blocks and wrap top-level ``\\`` rows in
    ``gathered`` so MathJax renders them on separate lines.
-3. Convert Typora ``==highlight==`` syntax into semantic HTML ``<mark>``.
+3. Convert Typora ``==highlight==`` and ``^superscript^`` syntax into
+   semantic HTML ``<mark>`` and ``<sup>`` elements.
 4. Copy local markdown/html image assets into the public images directory.
 5. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
 6. Add Jekyll front matter when the source note does not already have it.
@@ -212,8 +213,50 @@ def find_unescaped(text: str, delimiter: str, start: int) -> int:
     return -1
 
 
-def convert_typora_highlights_in_line(line: str) -> str:
-    """Convert ``==text==`` outside inline code, math, and HTML tags."""
+def is_typora_opening_delimiter(line: str, index: int, delimiter: str) -> bool:
+    """Return whether ``delimiter`` starts exact Typora inline markup."""
+    delimiter_character = delimiter[0]
+    content_start = index + len(delimiter)
+    return (
+        line.startswith(delimiter, index)
+        and not is_escaped(line, index)
+        and (index == 0 or line[index - 1] != delimiter_character)
+        and not (delimiter == "^" and index > 0 and line[index - 1] == "[")
+        and content_start < len(line)
+        and line[content_start] != delimiter_character
+        and not line[content_start].isspace()
+    )
+
+
+def find_typora_closing_delimiter(
+    line: str, delimiter: str, content_start: int
+) -> int:
+    """Find an exact Typora closing delimiter with nonblank content."""
+    delimiter_character = delimiter[0]
+    closing_index = line.find(delimiter, content_start)
+
+    while closing_index != -1:
+        delimiter_end = closing_index + len(delimiter)
+        content = line[content_start:closing_index]
+        if (
+            closing_index > content_start
+            and not is_escaped(line, closing_index)
+            and line[closing_index - 1] != delimiter_character
+            and not line[closing_index - 1].isspace()
+            and (delimiter != "^" or not any(char.isspace() for char in content))
+            and (
+                delimiter_end == len(line)
+                or line[delimiter_end] != delimiter_character
+            )
+        ):
+            return closing_index
+        closing_index = line.find(delimiter, closing_index + len(delimiter))
+
+    return -1
+
+
+def convert_typora_inline_markup_in_line(line: str) -> str:
+    """Convert Typora highlight/superscript outside code, math, and HTML."""
     output: list[str] = []
     index = 0
 
@@ -248,40 +291,23 @@ def convert_typora_highlights_in_line(line: str) -> str:
                 index = math_end
                 continue
 
-        is_opening_delimiter = (
-            line.startswith("==", index)
-            and not is_escaped(line, index)
-            and (index == 0 or line[index - 1] != "=")
-            and index + 2 < len(line)
-            and line[index + 2] != "="
-            and not line[index + 2].isspace()
-        )
-        if is_opening_delimiter:
-            closing_index = line.find("==", index + 2)
-            while closing_index != -1:
-                is_exact_closing_delimiter = (
-                    not is_escaped(line, closing_index)
-                    and line[closing_index - 1] != "="
-                    and (
-                        closing_index + 2 == len(line)
-                        or line[closing_index + 2] != "="
-                    )
-                )
-                highlighted = line[index + 2 : closing_index]
-                if (
-                    is_exact_closing_delimiter
-                    and highlighted
-                    and not highlighted[-1].isspace()
-                ):
-                    output.append(f"<mark>{highlighted}</mark>")
-                    index = closing_index + 2
-                    break
-                closing_index = line.find("==", closing_index + 2)
-            else:
-                output.append(character)
-                index += 1
-            if closing_index != -1:
+        converted = False
+        for delimiter, tag in (("==", "mark"), ("^", "sup")):
+            if not is_typora_opening_delimiter(line, index, delimiter):
                 continue
+            content_start = index + len(delimiter)
+            closing_index = find_typora_closing_delimiter(
+                line, delimiter, content_start
+            )
+            if closing_index == -1:
+                continue
+            content = line[content_start:closing_index]
+            output.append(f"<{tag}>{content}</{tag}>")
+            index = closing_index + len(delimiter)
+            converted = True
+            break
+
+        if converted:
             continue
 
         output.append(character)
@@ -290,8 +316,8 @@ def convert_typora_highlights_in_line(line: str) -> str:
     return "".join(output)
 
 
-def convert_typora_highlights(text: str) -> str:
-    """Convert Typora highlights while preserving fenced and display math blocks."""
+def convert_typora_inline_markup(text: str) -> str:
+    """Convert Typora inline markup outside fenced and display math blocks."""
     lines = text.splitlines()
     output: list[str] = []
     in_fence = False
@@ -311,7 +337,7 @@ def convert_typora_highlights(text: str) -> str:
         if in_fence or in_display_math:
             output.append(line)
         else:
-            output.append(convert_typora_highlights_in_line(line))
+            output.append(convert_typora_inline_markup_in_line(line))
 
     return "\n".join(output) + ("\n" if text.endswith("\n") else "")
 
@@ -598,7 +624,7 @@ def convert(args: argparse.Namespace) -> Path:
 
     copied: dict[Path, str] = {}
     body = convert_callouts(body)
-    body = convert_typora_highlights(body)
+    body = convert_typora_inline_markup(body)
     body = normalize_display_math(body)
     body = rewrite_markdown_images(body, source_md, repo_root, asset_dir, copied)
     body = rewrite_html_images(body, source_md, repo_root, asset_dir, copied)

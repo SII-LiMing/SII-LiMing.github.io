@@ -154,7 +154,7 @@ $$
 
 ## 2 Vector Field
 
-对于每个 Conditional Probability Path, 都存在一个等效的 ODE ^[1]^. 
+对于每个 Conditional Probability Path, 都存在一个等效的 ODE <sup>[1]</sup>.
 
 $$
 X_0\sim p_0(\cdot \mid z), \frac{d}{dt} X_t = u_t(X_t \mid z) \,\, \Rightarrow \,\, X_t\sim p_t(\cdot \mid z)
@@ -162,7 +162,7 @@ $$
 
 其中, $p_0(\cdot \mid z)$ 就是 $p_{init}$ 这个式子在说, 我们可以从 $p_{init}$ 中采样, 然后沿着 VF 演化到 $t$ 时刻 (比如用 Euler method), 其等效于从 $p_t(\cdot \mid z)$ 中采样. 
 
-在 (4) 的情形下, 这个 VF 形式非常简单 ^[2]^:
+在 (4) 的情形下, 这个 VF 形式非常简单 <sup>[2]</sup>:
 
 $$
 u_t(x \mid z)=\big( \dot \alpha_t - \frac{\dot \beta_t}{\beta_t}\alpha_t  \big) z + \frac{\dot \beta_t}{\beta_t} x
@@ -185,7 +185,7 @@ $$
 + VF (最终被 neural network 建模) 数学上不提供任何随机性, 所有随机性均来源于从 $p_{init}$ 的那次采样. 
 </div>
 
-这样的 $u_t(x)$ 是存在的, 可以证明 ^[3]^
+这样的 $u_t(x)$ 是存在的, 可以证明 <sup>[3]</sup>
 
 $$
 u_t(x) = \int u_t(x \mid z)\frac{p_t(x \mid z)p_{data}(z)}{p_t(x)}dz
@@ -208,7 +208,7 @@ $$
 我们用 $\hat {}$ 标记 $\hat{u}_t^\theta(x)$ 是网络预测的 VF, 并且增添上标 $^\theta$ 强调其依赖于网络参数 $\theta$, $u_t(x)$ 则是真实的 VF
 </div>
 
-不过, 这个损失是不可计算的, 因为其依赖 $u_t(x)$, 而计算 $u_t(x)$ 需要根据 (14) 式, 这个式子带有 $p_{data}$, 这个 $p_{data}$ 本来就是我们要求的未知分布. 幸运的是, 可以证明 ^[4]^ , 最小化 flow matching loss 等价于最小化以下 **conditional flow matching loss**
+不过, 这个损失是不可计算的, 因为其依赖 $u_t(x)$, 而计算 $u_t(x)$ 需要根据 (14) 式, 这个式子带有 $p_{data}$, 这个 $p_{data}$ 本来就是我们要求的未知分布. 幸运的是, 可以证明 <sup>[4]</sup>, 最小化 flow matching loss 等价于最小化以下 **conditional flow matching loss**
 
 $$
 \mathcal {L}_{CFM} = \mathbb{E}_{t\sim \mathcal{U}(0,1),\, z\sim p_{data}, \,\, x\sim p_t(\cdot \mid z)}[||\hat u_t^\theta(x) - u_t(x \mid z) ||^2]
