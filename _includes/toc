@@ -1,6 +1,8 @@
 <aside class="sidebar__right{% if include.class %} {{ include.class }}{% endif %}">
 <nav class="toc" markdown="1">
+{% unless include.hide_title %}
 <header><h4 class="nav__title"><i class="fa fa-{{ include.icon | default: 'file-text' }}"></i> {{ include.title | default: site.data.ui-text[site.locale].toc_label }}</h4></header>
+{% endunless %}
 *  Auto generated table of contents
 {:toc .toc__menu}
 </nav>
