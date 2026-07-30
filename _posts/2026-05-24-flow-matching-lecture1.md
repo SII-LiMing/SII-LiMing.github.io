@@ -6,7 +6,7 @@ tags:
   - flow matching
 ---
 
-# Flow and Diffusion Models
+<!-- # Flow and Diffusion Models -->
 
 ## 1 Formalize Generating Something
 

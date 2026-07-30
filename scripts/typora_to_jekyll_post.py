@@ -5,11 +5,13 @@ Convert a Typora markdown note into a Jekyll blog post.
 This script handles the common differences between Typora/GitHub-flavored
 notes and this Academic Pages/Jekyll site:
 
-1. Normalize display math blocks and wrap top-level ``\\`` rows in
+1. Read the first H1 as the post title, then comment it out to avoid rendering
+   a duplicate title below the Jekyll page title.
+2. Normalize display math blocks and wrap top-level ``\\`` rows in
    ``gathered`` so MathJax renders them on separate lines.
-2. Copy local markdown/html image assets into the public images directory.
-3. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
-4. Add Jekyll front matter when the source note does not already have it.
+3. Copy local markdown/html image assets into the public images directory.
+4. Convert GitHub/Obsidian callouts such as > [!NOTE] into notice blocks.
+5. Add Jekyll front matter when the source note does not already have it.
 """
 
 from __future__ import annotations
@@ -31,6 +33,11 @@ CALLOUT_CLASSES = {
     "CAUTION": "notice--danger",
 }
 
+H1_PATTERN = re.compile(r"^ {0,3}#(?!#)[ \t]+(.+?)(?:[ \t]+#+)?[ \t]*$")
+COMMENTED_H1_PATTERN = re.compile(
+    r"^\s*<!--\s*#(?!#)[ \t]+(.+?)(?:[ \t]+#+)?[ \t]*-->\s*$"
+)
+
 
 def split_front_matter(text: str) -> tuple[str | None, str]:
     """Return existing YAML front matter and body."""
@@ -47,15 +54,54 @@ def split_front_matter(text: str) -> tuple[str | None, str]:
     return None, text
 
 
-def extract_title(body: str, source: Path) -> str:
-    """Use the first H1 as title, otherwise use the filename."""
-    for line in body.splitlines():
-        match = re.match(r"^#\s+(.+?)\s*$", line)
+def is_fence_line(line: str) -> bool:
+    stripped = line.strip()
+    return stripped.startswith("```") or stripped.startswith("~~~")
+
+
+def find_title_heading(lines: list[str]) -> tuple[int, str, bool] | None:
+    """Find the first unfenced H1, including one already commented out."""
+    in_fence = False
+
+    for index, line in enumerate(lines):
+        if is_fence_line(line):
+            in_fence = not in_fence
+            continue
+        if in_fence:
+            continue
+
+        match = H1_PATTERN.match(line)
         if match:
-            return match.group(1).strip()
+            return index, match.group(1).strip(), False
+
+        match = COMMENTED_H1_PATTERN.match(line)
+        if match:
+            return index, match.group(1).strip(), True
+
+    return None
+
+
+def extract_title(body: str, source: Path) -> str:
+    """Use the first visible or commented H1, otherwise use the filename."""
+    heading = find_title_heading(body.splitlines())
+    if heading:
+        return heading[1]
 
     stem = re.sub(r"^\d{4}-\d{2}-\d{2}-", "", source.stem)
     return stem.replace("-", " ").replace("_", " ").strip() or "Untitled Post"
+
+
+def comment_out_title_heading(body: str) -> str:
+    """Comment out the first H1 so the Jekyll layout is the only title layer."""
+    lines = body.splitlines()
+    heading = find_title_heading(lines)
+    if heading is None or heading[2]:
+        return body
+
+    index = heading[0]
+    lines[index] = f"<!-- {lines[index].strip()} -->"
+    trailing_newline = "\n" if body.endswith("\n") else ""
+    return "\n".join(lines) + trailing_newline
 
 
 def slugify(value: str, fallback: str = "post") -> str:
@@ -83,11 +129,6 @@ def make_front_matter(title: str, post_date: str, slug: str, tags: list[str]) ->
 
     lines.append("---")
     return "\n".join(lines)
-
-
-def is_fence_line(line: str) -> bool:
-    stripped = line.strip()
-    return stripped.startswith("```") or stripped.startswith("~~~")
 
 
 def convert_callouts(text: str) -> str:
@@ -411,6 +452,7 @@ def convert(args: argparse.Namespace) -> Path:
     raw_text = source_md.read_text(encoding="utf-8")
     existing_front_matter, body = split_front_matter(raw_text)
     title = args.title or extract_title(body, source_md)
+    body = comment_out_title_heading(body)
     post_date = args.date
     slug = args.slug or slugify(source_md.stem)
     tags = parse_tags(args.tag)
