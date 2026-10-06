@@ -26,7 +26,7 @@ author:
   avatar           : "profile.jpg"
   name             : "Ming Li"
   pronouns         : # example: "she/her"  
-  bio              : "Hi! I am Ming Li (李明), a first-year Ph.D. student jointly trained by Zhejiang University, Westlake University, and the Shanghai Innovation Institute. I am advised by <a href=\"https://en.westlake.edu.cn/faculty/xiangru-huang.html\">Xiangru Huang</a> and <a href=\"https://yanweifu.github.io/\">Yanwei Fu</a>. My research focuses on 3D reconstruction and generation, with a particular interest in scalable pipelines for automatically acquiring high-quality, interactive 3D assets. I am interested not only in watertight 3D objects, but also in modeling cloth and garments."
+  bio              : "Hi! I am Ming Li (李明), a second-year Ph.D. student jointly trained by Zhejiang University, Westlake University, and the Shanghai Innovation Institute. I am advised by <a href=\"https://en.westlake.edu.cn/faculty/xiangru-huang.html\">Xiangru Huang</a> and <a href=\"https://yanweifu.github.io/\">Yanwei Fu</a>. My research focuses on 3D reconstruction and generation, with a particular interest in scalable pipelines for automatically acquiring high-quality, interactive 3D assets. I am interested not only in watertight 3D objects, but also in modeling cloth and garments."
   location         : ""
   employer         : ""
   uri              : # URL
@@ -93,6 +93,13 @@ publication_category:
     title: 'Journal Articles'    
   conferences:
     title: 'Conference Papers'
+
+# Publication entries without a separate detail page. Dates are used for sorting.
+additional_publications:
+  - title: "MindShape: Superquadric-Constrained High-Fidelity 3D Reconstruction from fMRI"
+    date: 2026-09-01 00:00:00 +0800
+    venue_display: "NeurIPS 2026"
+    authors_html: 'Xiaoquan Shen, <span class="pub-self">Ming Li</span>, Jianxiong Gao, Jiaxuan Chen, Xiangru Huang, Yanwei Fu, Gang Pan'
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews
@@ -182,6 +189,7 @@ exclude:
   - CHANGELOG
   - Capfile
   - config
+  - codexhouse
   - Dockerfile
   - Gemfile
   - Gruntfile.js

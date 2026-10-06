@@ -119,7 +119,7 @@
 }
 </style>
 
-{% assign pubs = site.publications | sort: "date" | reverse %}
+{% assign pubs = site.publications | concat: site.additional_publications | sort: "date" | reverse %}
 <div class="pub-list">
   {% for post in pubs %}
     <div class="pub-card{% if compact %} compact{% endif %}">

@@ -1,3 +1,6 @@
+- date: "2026.9"
+  icon: "📄"
+  html: 'One paper was accepted to <span class="news-highlight">NeurIPS 2026</span>: MindShape (<span class="news-highlight">second author</span>).'
 - date: "2026.6"
   icon: "📄"
   html: 'One paper was accepted to <span class="news-highlight">ECCV 2026</span>: <a href="https://arxiv.org/abs/2603.16085">Interact3D</a> (<span class="news-highlight">third author</span>).'
