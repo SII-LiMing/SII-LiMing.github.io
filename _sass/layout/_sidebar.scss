@@ -138,10 +138,12 @@
 
 /* About page section navigation */
 .about__section-nav {
+  grid-area: navigation;
+  align-self: start;
   float: none;
   position: static;
   width: 100%;
-  margin-left: 0;
+  margin: 0;
 
   .toc {
     padding: 0;
@@ -171,10 +173,8 @@
   }
 
   @include breakpoint($x-large) {
-    position: fixed;
+    position: sticky;
     top: calc(#{$masthead-height} + 1.5rem);
-    right: 1rem;
-    width: 190px;
     max-height: calc(100vh - #{$masthead-height} - 3rem);
     overflow-y: auto;
   }

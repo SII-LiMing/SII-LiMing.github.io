@@ -100,6 +100,7 @@ additional_publications:
     date: 2026-09-01 00:00:00 +0800
     venue_display: "NeurIPS 2026"
     authors_html: 'Xiaoquan Shen, <span class="pub-self">Ming Li</span>, Jianxiong Gao, Jiaxuan Chen, Xiangru Huang, Yanwei Fu, Gang Pan'
+    teaser: "pub/MindShape.png"
 
 # Site Settings
 teaser                   :  # filename of teaser fallback teaser image placed in /images/ for social media previews

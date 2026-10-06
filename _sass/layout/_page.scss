@@ -34,6 +34,61 @@
   }
 }
 
+/* Keep the homepage navigation in its own column, outside the article. */
+#main.about-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-areas: "profile" "navigation" "content";
+  gap: 1.5rem;
+
+  &::before,
+  &::after {
+    display: none;
+  }
+
+  > .sidebar {
+    grid-area: profile;
+    align-self: start;
+    position: static;
+    float: none;
+    width: auto;
+    max-width: none;
+    height: auto;
+    margin: 0;
+    /* The legacy navigation script adds padding for the fixed sidebar. */
+    padding-top: 0 !important;
+  }
+
+  > .page {
+    grid-area: content;
+    float: none;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    padding: 0;
+  }
+
+  @include breakpoint($large) {
+    grid-template-columns: 200px minmax(0, 1fr);
+    grid-template-areas: "profile navigation" "profile content";
+    column-gap: 2rem;
+
+    > .sidebar {
+      position: sticky;
+      top: calc(#{$masthead-height} + 1.5rem);
+      max-height: calc(100vh - #{$masthead-height} - 3rem);
+      overflow-y: auto;
+    }
+  }
+
+  @include breakpoint($x-large) {
+    max-width: none;
+    grid-template-columns: 250px minmax(0, 1fr) 190px;
+    grid-template-areas: "profile content navigation";
+    padding-left: calc((100% - #{$x-large}) / 2 + 1rem);
+  }
+}
+
 .page__title {
   margin-top: 0;
   line-height: 1;
