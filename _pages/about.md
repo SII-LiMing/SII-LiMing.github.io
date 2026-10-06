@@ -14,6 +14,8 @@ section_nav:
     url: "#publications"
   - title: Honors & Awards
     url: "#honors-and-awards"
+  - title: Academic Services
+    url: "#academic-services"
 redirect_from: 
   - /about/
   - /about.html
@@ -45,3 +47,8 @@ Hi! I am **Ming Li (李明)**, a second-year Ph.D. student jointly trained by **
 {: #honors-and-awards .about__section-heading }
 
 {% include sections/honors.html %}
+
+## Academic Services
+{: #academic-services .about__section-heading }
+
+**Conference Reviewer:** NeurIPS 2026, ICLR 2027
